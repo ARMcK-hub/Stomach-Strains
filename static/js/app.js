@@ -161,11 +161,6 @@ d3.json('../samples.json').then( (incomingData) => {
         Plotly.restyle(BAR, 'text', [barLabels])    
     }
 
-    // test print
-    // console.log(dataNames)
-    console.log(dataMeta)
-    // console.log(dataSamples)
-
     init()
     })
 
