@@ -26,6 +26,8 @@ d3.json('../samples.json').then( (incomingData) => {
     // selecting the bubble plot
     var BUBBLE = d3.select('#bubble').node()
 
+    var GAUGE = d3.select('#gauge').node()
+
     // selecting meta data panel
     var META = d3.select('#sample-metadata')
 
@@ -109,6 +111,38 @@ d3.json('../samples.json').then( (incomingData) => {
 
         // creating bar plot
         Plotly.newPlot(BAR, plotBar, barLayout)
+
+        /////////////////////////////
+        //       GAUGE PLOT        //
+        /////////////////////////////
+
+        var initWashFreq = initMeta[0].wfreq
+
+        var traceGauge = {
+            type: 'indicator',
+            mode: 'gauge+number',
+            title: 'Wash Frequency',
+            value: initWashFreq,
+            gauge: {
+                axis: { range: [0, 9], tickwidth: 1, tickcolor: 'green'},
+                steps: [
+                    { range: [0, 1], color: 'rgba(0, 0, 0, 0)'},
+                    { range: [1, 2], color: 'rgba(0, 255, 0, 0.25)'},
+                    { range: [2, 3], color: 'rgba(0, 255, 0, 0.5)'},
+                    { range: [3, 4], color: 'rgba(0, 255, 0, 0.75)'},
+                    { range: [4, 5], color: 'rgba(0, 225, 0, 1)'},
+                    { range: [5, 6], color: 'rgba(0, 175, 0, 1)'},
+                    { range: [6, 7], color: 'rgba(0, 125, 0, 1)'},
+                    { range: [7, 8], color: 'rgba(0, 75, 0, 1)'},
+                    { range: [8, 9], color: 'rgba(0, 50, 0, 1)'}
+                ],
+                
+            }
+        }
+
+        var plotGauge = [traceGauge]
+
+        Plotly.newPlot(GAUGE, plotGauge)
     }
 
 
@@ -159,6 +193,16 @@ d3.json('../samples.json').then( (incomingData) => {
         Plotly.restyle(BAR, 'x', [barValues])
         Plotly.restyle(BAR, 'y', [barIDs])
         Plotly.restyle(BAR, 'text', [barLabels])    
+
+
+        /////////////////////////////
+        //       GAUGE PLOT        //
+        /////////////////////////////
+
+        var gaugeValue = updMeta[0].wfreq
+
+        Plotly.restyle(GAUGE, 'value', [gaugeValue])
+
     }
 
     init()
