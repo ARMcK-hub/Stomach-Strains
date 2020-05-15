@@ -5,7 +5,7 @@
 
 
 //  importing samples data
-d3.json('../samples.json').then( (incomingData) => {
+d3.json('static/samples.json').then( (incomingData) => {
     
 
     // creating data items
